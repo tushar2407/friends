@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- bellow meta tag helpful for optimising the look at different devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+</head>
+<body>
+    <div class="container">
+        <form method="POST">
+           {% csrf_token %}
+            {{form.as_p}}
+            <button type='submit'> Submit</button>
+        </form>
+        <p>{{text}} </p>
+        {% for i in posts %}
+        <h1> {{i.post}} </h1>
+        <p>{{i.date}}</p>
+        <p>{{i.user}}</p>
+        
+        {% endfor %}
+        <h1>Others</h1>
+        <ul decoration=none>
+        {% for i in users %}
+        <div class="row">
+        <h3><a href="{% url 'profile' pk=i.pk %}">{{i}}</a></h3>
+        <a href='{% url "change_friend" pk=i.pk operation="add"%}'>
+            <button type="button">Add</button>
+        </a>
+    </div>
+        {% endfor %}
+        </ul>
+        <h1>friends</h1>
+        {% for i in friends %}
+        <div class="row">
+        <h3>{{i.username}}</h3> 
+        <a href='{% url "change_friend" pk=i.pk operation="remove"%}'>
+        <button type='button'>Remove</button></a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+<!--add jquery -->
+<!--add js -->
+</html>
